@@ -1,0 +1,34 @@
+import smtplib  #библиотека
+from email.mime.text import MIMEText    #модули какие-то за красоту отправки писем
+from email.header import Header
+from email.mime.multipart import MIMEMultipart
+
+sender_mail = 'arenkova.anna@yandex.ru'    #почта с которой отпраляем письмо
+sender_password = ' '    #типо там парольчик для почты но я его не дам
+
+target_mail = 'arenkova.anna14@gmail.com'     #кому отправляем
+
+subject = 'Test mail'   #переменная, которая относиться к заголовку
+msg = MIMEMultipart()   #переменная, которая сожержит краткое описание что за письмо
+msg['From'] = sender_mail  #кому отправляем 
+msg['To'] = target_mail    #куда отправляем
+msg.add_header('reply-to', sender_mail)    #куда отправляем ответ
+
+mailsender = smtplib.SMTP('smtp.gmail.com', 587)  #подключаемся к почтовомц сервесу 587 код по которому работает смтп джимейл ком
+mailsender.starttls()  
+mailsender.login(sender_mail, sender_password)    #переменная с которой отправка идет и досту к почте
+mail_sybject = 'Test mail'
+mail_body_text = 'Текст текстового письма'   #переменная содержит текст письма
+
+mail_body_html = '<html><head><body></body></head></html>'
+
+msg = MIMEText(mail_body_html, 'html', 'utf-8')    #формируем письмо для отправки последнее это кодировка
+msg['Subject'] = Header(mail_subject, 'utf-8')
+
+mailsender.sendmail(sender_mail, taget_mail, msg.as_string())  #функция отвечающая за отправку готового письма
+mailsender.quit()
+
+
+
+
+
